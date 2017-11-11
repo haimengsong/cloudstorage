@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.song.cloudstorage.model.UserMapper">
+
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id" javaType="java.lang.Integer"></id>
+        <result property="username" column="username" javaType="java.lang.String"></result>
+        <result property="email" column="email" javaType="java.lang.String"></result>
+        <result property="gender" column="gender" javaType="java.lang.Integer"></result>
+        <result property="portrait" column="portrait" javaType="java.lang.String"></result>
+        <result property="joindate" column="joindate" javaType="java.lang.String"></result>
+
+    </resultMap>
+
+    <select id="loadUser" parameterType="User" resultMap="userMap">
+        select * from user where email = #{email} and password = md5(#{password})
+    </select>
+
+    <insert id="insertUser" parameterType="User">
+        insert into user(email, username, password, joindate,gender,portrait)
+        values (#{email},#{username},md5(#{password}),#{joindate},#{gender},'portrait')
+
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>

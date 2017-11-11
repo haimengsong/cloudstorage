@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.song.cloudstorage.model.MyFileMapper">
+
+    <resultMap id="myFileMap" type="MyFile">
+        <id property="id" column="id" javaType="java.lang.Integer"></id>
+        <result property="user_id" column="user_id" javaType="java.lang.Integer"></result>
+        <result property="parent_id" column="parent_id" javaType="java.lang.Integer"></result>
+        <result property="name" column="name" javaType="java.lang.String"></result>
+        <result property="size" column="size" javaType="java.lang.Long"></result>
+        <result property="type" column="type" javaType="java.lang.String"></result>
+        <result property="path" column="path" javaType="java.lang.String"></result>
+        <result property="createdate" column="createdate" javaType="java.lang.String"></result>
+        <result property="password" column="password" javaType="java.lang.String"></result>
+        <result property="isLock" column="islock" javaType="java.lang.Integer"></result>
+        <result property="isShare" column="isshare" javaType="java.lang.Integer"></result>
+        <result property="shareDownload" column="sharedownload" javaType="java.lang.Integer"></result>
+        <result property="location" column="location" javaType="java.lang.String"></result>
+        <result property="shareurl" column="shareurl" javaType="java.lang.String"></result>
+        <result property="md5" column="md5" javaType="java.lang.String"></result>
+        <result property="description" column="description" javaType="java.lang.String"></result>
+    </resultMap>
+
+    <select id="getMyFileByID" parameterType="int" resultMap="myFileMap">
+        select * from myfile where id = #{id}
+    </select>
+
+    <select id="getFilesByFolderId" parameterType="int" resultMap="myFileMap">
+        select * from myfile where parent_id = #{id} order by type asc
+    </select>
+
+    <select id="getHomeId" parameterType="int" resultType="int">
+        select * from myfile where name = ("#" + #{id})
+    </select>
+
+    <insert id="insertMyFile" parameterType="MyFile">
+        insert into myfile(user_id, parent_id,name,path,type,size)
+        values(#{user_id}, #{parent_id}, #{name}, #{path}, 'adir', 0)
+    </insert>
+</mapper>
