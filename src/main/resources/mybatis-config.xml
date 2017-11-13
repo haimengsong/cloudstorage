@@ -20,7 +20,7 @@
     </environments>
 
     <mappers>
-        <package name="com/song/cloudstorage/mapper" />
+        <package name="mapper" />
     </mappers>
 
 </configuration>

@@ -81,7 +81,7 @@
 					        		<dt>Email：</dt><dd><input name="email"/></dd>
 					        		<dt>username：</dt><dd><input name="username"/></dd>
 					        		<dt>password：</dt><dd><input name="password" type="password"/></dd>
-					        		<dt>password2：</dt><dd><input name="confirm" type="password"/></dd>
+					        		<dt>verify：</dt><dd><input name="confirm" type="password"/></dd>
 					        		<dt>gender：</dt><dd><select name="gender"><option value="0">female</option><option value="1">male</option></select></dd>
 					        		<dt></dt><dd><button id="register">register</button></dd>
 					        	</dl>
