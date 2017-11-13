@@ -119,7 +119,7 @@
 					ajax:{
 						successMsg:"this email is available to use",
 						errorMsg:"this email has been used",
-						url:"/register/confirm_email"
+						url:"register/confirm_email"
 					}
 				},{
 					name:"username",
@@ -128,7 +128,7 @@
 					ajax:{
 						successMsg:"this name is available to use",
 						errorMsg:"this name has been used",
-						url:"/register/confirm_username"
+						url:"register/confirm_username"
 					}
 				},{
 					name:"password",
@@ -151,7 +151,7 @@
 						if(!result) {e.preventDefault();return;}
 
 						$.ajax({
-							url:"/login/login_confirm",
+							url:"login/login_confirm",
 							data:form.serialize(),
 							type:"post",
 							dataType:"text",
