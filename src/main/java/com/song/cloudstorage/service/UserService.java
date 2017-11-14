@@ -8,11 +8,14 @@ import com.song.cloudstorage.model.MyDiskInfo;
 import com.song.cloudstorage.model.MyFile;
 import com.song.cloudstorage.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Service
 @Transactional(readOnly = true)
 public class UserService {
 
@@ -49,4 +52,17 @@ public class UserService {
         user.setId(uID);
         user.setPortrait("portrait");
     }
+
+	public String confirmEmail(String email) {
+		// TODO Auto-generated method stub
+		if(userDao.UserByEmailExists(email)){
+			return "0";
+		}
+		return "1";
+	}
+
+	public String confirmUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -2,36 +2,44 @@ package com.song.cloudstorage.dao;
 
 
 import com.song.cloudstorage.model.User;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+@Component
 public class UserDao {
 
     private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.MyDiskInfoMapper.";
 
     @Autowired
-    private SqlSessionFactory sqlSessionFactory;
+    private SqlSessionTemplate session;
 
 
     public User load(User user) {
-        SqlSession session = sqlSessionFactory.openSession();
         String statement = BASEPATHOFMAPPER + "loadUser";
         User u = session.selectOne(statement, user);
-        session.close();
         return u;
     }
 
     public int insert(User user) {
-        SqlSession session = sqlSessionFactory.openSession();
         String statement = BASEPATHOFMAPPER + "insertUser";
         int uID = session.insert(statement, user);
-        session.close();
         return uID;
     }
+
+	public boolean UserByEmailExists(String email) {
+		// TODO Auto-generated method stub
+        String statement = BASEPATHOFMAPPER + "selectNumOfUsersByEmail";
+        int numOfUser = session.selectOne(statement, email);
+        if(numOfUser > 0) return true;
+		return false;
+	}
+	
+	public boolean UserByUsernameExists(String username) {
+        String statement = BASEPATHOFMAPPER + "selectNumOfUsersByUsername";
+        int numOfUser = session.insert(statement, username);
+        if(numOfUser > 0) return true;
+		return false;
+	}
 }
