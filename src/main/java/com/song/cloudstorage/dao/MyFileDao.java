@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class MyFileDao {
 
-    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.MyFileMapper.";
+    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.mapper.MyFileMapper.";
 
     @Autowired
     private SqlSessionTemplate sqlSession;

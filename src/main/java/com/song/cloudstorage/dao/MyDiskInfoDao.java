@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyDiskInfoDao {
 
-    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.MyDiskInfoMapper.";
+    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.mapper.MyDiskInfoMapper.";
 
     @Autowired
     private  SqlSessionTemplate session;

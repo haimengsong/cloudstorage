@@ -45,5 +45,28 @@ public class DiskController extends Support{
     }
     
     
+    /**
+     * visit home page with path '/disk'
+     * @return
+     */
+    @RequestMapping("/disk")
+    public String index(){
+    	return "disk";
+    }
     
+    /**
+     * visit home page with path '/'
+     */
+    @RequestMapping("/")
+    public String index1(){
+    	return "redirect:/home/disk";
+    }
+    
+    /**
+     * visit home page with path ''
+     */
+    @RequestMapping("")
+    public String index2(){
+    	return "redirect:/home/disk";
+    }
 }

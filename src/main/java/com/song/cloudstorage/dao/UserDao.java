@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDao {
 
-    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.MyDiskInfoMapper.";
+    private static final String BASEPATHOFMAPPER = "com.song.cloudstorage.mapper.UserMapper.";
 
     @Autowired
     private SqlSessionTemplate session;
@@ -28,7 +28,7 @@ public class UserDao {
         return uID;
     }
 
-	public boolean UserByEmailExists(String email) {
+	public boolean userByEmailExists(String email) {
 		// TODO Auto-generated method stub
         String statement = BASEPATHOFMAPPER + "selectNumOfUsersByEmail";
         int numOfUser = session.selectOne(statement, email);
@@ -36,7 +36,7 @@ public class UserDao {
 		return false;
 	}
 	
-	public boolean UserByUsernameExists(String username) {
+	public boolean userByUsernameExists(String username) {
         String statement = BASEPATHOFMAPPER + "selectNumOfUsersByUsername";
         int numOfUser = session.insert(statement, username);
         if(numOfUser > 0) return true;
