@@ -27,7 +27,7 @@
        比如传进来的逻辑视图名为WEB-INF/jsp/hello，则该该jsp视图页面应该存放在“WEB-INF/jsp/hello.jsp”； -->
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-        <property name="prefix" value="/PAGE"></property> <!-- 我这里的视图直接放在WebRoot下的 -->
+        <property name="prefix" value="/PAGE/"></property> <!-- 我这里的视图直接放在WebRoot下的 -->
         <property name="suffix" value=".jsp"></property>
     </bean>
 </beans>

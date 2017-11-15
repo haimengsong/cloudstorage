@@ -8,6 +8,8 @@
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
+		<base href="${pageContext.request.contextPath}/cloudstorage" />
+		
 		<link rel="stylesheet" href="resource/css/base.css"/>
 		<link rel="stylesheet" href="resource/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 		<link rel="stylesheet" href="resource/css/disk.css"/>

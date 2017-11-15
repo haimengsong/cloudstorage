@@ -1,7 +1,5 @@
 package com.song.cloudstorage.controller;
 
-import com.song.cloudstorage.dao.MyDiskInfoDao;
-import com.song.cloudstorage.dao.MyFileDao;
 import com.song.cloudstorage.model.User;
 import com.song.cloudstorage.service.MyDiskInfoService;
 import com.song.cloudstorage.service.MyFileService;
