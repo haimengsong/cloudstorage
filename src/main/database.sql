@@ -2,7 +2,7 @@ drop database cloudstorage;
 create database cloudstorage charset utf8;
 use cloudstorage;
 
-create table user(
+create table users(
     id int primary key auto_increment,
     username varchar(50) not null unique,
     password varchar(50) not null,
@@ -30,7 +30,7 @@ create table myfile(
     md5 char(32),
     description varchar(200),
     index(parent_id),
-    foreign key (user_id) references user(id),
+    foreign key (user_id) references users(id),
     foreign key (parent_id) references myfile(id) on DELETE CASCADE
 );
 
@@ -41,7 +41,7 @@ create table mydiskinfo(
     usedsize long,
     filenumber int,
     sharenumber int,
-    foreign key (user_id) references user(id)
+    foreign key (user_id) references users(id)
 );
 
 create table message(
@@ -51,5 +51,5 @@ create table message(
     username varchar(30) not null,
     title varchar(30) not null,
     content text not null,
-    foreign key (user_id) references user(id)
+    foreign key (user_id) references users(id)
 );

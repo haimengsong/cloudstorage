@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.song.cloudstorage.model.UserMapper">
+<mapper namespace="com.song.cloudstorage.mapper.UserMapper">
 
     <resultMap id="userMap" type="User">
         <id property="id" column="id" javaType="java.lang.Integer"></id>
@@ -14,17 +14,28 @@
 
     </resultMap>
 
-    <select id="loadUser" parameterType="User" resultMap="userMap">
-        select * from user where email = #{email} and password = md5(#{password})
+    <select id="loadUser" parameterType="User" resultType="User">
+        select * from users where email = #{email} and password = md5(#{password})
     </select>
 
     <insert id="insertUser" parameterType="User">
-        insert into user(email, username, password, joindate,gender,portrait)
+        insert into users(email, username, password, joindate,gender,portrait)
         values (#{email},#{username},md5(#{password}),#{joindate},#{gender},'portrait')
 
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
     </insert>
-
+	
+	<select id="selectNumOfUsersByEmail" parameterType="java.lang.String" resultType="int">
+		select count(*)
+		from users
+		where email = #{email}
+	</select>
+	
+	<select id="selectNumOfUsersByUsername" parameterType="java.lang.String" resultType="int">
+		select count(*)
+		from users
+		where username = #{username}
+	</select>
 </mapper>

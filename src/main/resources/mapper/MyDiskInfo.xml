@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.song.cloudstorage.model.MyDiskInfoMapper">
+<mapper namespace="com.song.cloudstorage.mapper.MyDiskInfoMapper">
 
-    <resultMap id="myDiskInfoMap" type="User">
+    <resultMap id="myDiskInfoMap" type="MyDiskInfo">
         <id property="id" column="id" javaType="java.lang.Integer"></id>
         <result property="user_id" column="user_id" javaType="java.lang.Integer"></result>
         <result property="totalSize" column="totalsize" javaType="java.lang.Long"></result>
@@ -13,7 +13,7 @@
         <result property="shareNumber" column="sharenumber" javaType="java.lang.Integer"></result>
     </resultMap>
 
-    <select id="loadDiskInfo" parameterType="int" resultMap="myDiskInfoMap">
+    <select id="loadDiskInfo" parameterType="int" resultType="MyDiskInfo">
         select * from mydiskinfo where user_id = #{id}
     </select>
 

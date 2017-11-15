@@ -9,6 +9,8 @@ import com.song.cloudstorage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -35,5 +37,23 @@ public class RegisterController extends Support{
         session.setAttribute("homeId", myFileService.getHomeId(user.getId()));
         session.setAttribute("user", user);
         return "redirect:/home/disk";
+    }
+    
+    /**
+     * email confirming
+     * @param email
+     * @return
+     */
+    @RequestMapping(value="/confirm_email", method=RequestMethod.POST)
+    @ResponseBody
+    public String confirmEmail(String email) {
+    	String result = userService.confirmEmail(email);
+    	return result;
+    }
+    
+    @RequestMapping(value="/confirm_username",method=RequestMethod.POST)
+    @ResponseBody
+    public String confirmName(String username) {
+    	return userService.confirmUsername(username);
     }
 }

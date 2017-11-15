@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -43,5 +42,31 @@ public class DiskController extends Support{
         }
 
         return JSON.toJSONString(myFiles);
+    }
+    
+    
+    /**
+     * visit home page with path '/disk'
+     * @return
+     */
+    @RequestMapping("/disk")
+    public String index(){
+    	return "disk";
+    }
+    
+    /**
+     * visit home page with path '/'
+     */
+    @RequestMapping("/")
+    public String index1(){
+    	return "redirect:/home/disk";
+    }
+    
+    /**
+     * visit home page with path ''
+     */
+    @RequestMapping("")
+    public String index2(){
+    	return "redirect:/home/disk";
     }
 }
