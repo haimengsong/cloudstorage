@@ -23,7 +23,7 @@ public class MyFileDao {
 
     public List<MyFile> getFilesByFolderId(int id) {
     
-        String statement = BASEPATHOFMAPPER + "getMyFilesByFolderID";
+        String statement = BASEPATHOFMAPPER + "getFilesByFolderId";
         List<MyFile> files = sqlSession.selectList(statement, id);
         return files;
     }

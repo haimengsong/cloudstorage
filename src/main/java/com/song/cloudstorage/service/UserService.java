@@ -74,4 +74,9 @@ public class UserService {
 		}
 		return "1";
 	}
+
+	public User load(User user) {
+		// TODO Auto-generated method stub
+		return userDao.load(user);
+	}
 }
