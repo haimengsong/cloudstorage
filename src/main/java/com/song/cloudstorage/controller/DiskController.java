@@ -8,6 +8,7 @@ import com.song.cloudstorage.util.FileStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -23,11 +24,13 @@ public class DiskController extends Support{
     private MyFileService myFileService;
 
     /**
-     * list all files in the according directory
+     * list all files in the corresponding directory
      */
-    @RequestMapping("/list_myfile")
+    @RequestMapping(value="/list_myfile", method=RequestMethod.POST)
     @ResponseBody
     public String listFiles(int id, String pwd) {
+    	System.out.println(id);
+    	System.out.println(pwd);
         MyFile folder = myFileService.getMyFile(id);
         List<MyFile> myFiles = null;
 
