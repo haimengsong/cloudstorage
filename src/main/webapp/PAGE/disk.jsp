@@ -168,7 +168,7 @@
    				async : {
    					enable 		: true,
    					autoParam 	: ["id"],
-   					url 		: "list_myfile",
+   					url 		: "home/list_myfile",
    					dataFilter	: dataFilter
    				},
    				data:{keep:{parent:true}},
@@ -433,7 +433,7 @@
 		unlockFile = function(f){
 			inputPwd(f).find("#unlock").click(function(){
 				var pwd = $("#unlock_pwd");
-				var url = "list_myfile";
+				var url = "home/list_myfile";
 				var data = "pwd="+pwd.val()+"&id="+f.data("file_id");
 
 				$.post(url,data,function(data){
