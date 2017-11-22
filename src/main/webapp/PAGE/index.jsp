@@ -29,7 +29,7 @@
 				margin:0 auto;
 			}
 			#example{padding-right:40px;}
-			#login_register,#example{float:left;margin-top:60px;}
+			#login_register { margin-left: auto; margin-right:auto;margin-top:60px;}
 			#panel{height:300px;width:400px;padding:20px 6px;border:1px solid #44a0fe;border-top:none;}
 			#tab{
 				background:#44a0fe;width:392px;height:30px;margin:0;
@@ -56,13 +56,10 @@
 	<body>
 		<div id="wrap">
     		<div id="sky">
-    			<a id="logo" href="/home/disk" title="SunDive"><img src="resource/img/logo.png"/></a>
+    			<a id="logo" href="/home/disk" title="SunDive"></a>
 			</div>
 	        <div id="main">
 	        	<div id="vip">
-	        		<div id="example">
-		        		<img src="resource/img/me.png"/>
-		        	</div>
 	        		<div id="login_register">
 		        		<ul id="tab">
 		        			<li tar="login_form" class="tab_selected">login</li>
