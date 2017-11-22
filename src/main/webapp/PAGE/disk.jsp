@@ -98,25 +98,25 @@
 	        			<div id="user_detail">
 	        				<h4 id="name">${user.username}</h4>
 	        				<span id="gender gender_${user.gender}"></span>
-	        				<span>resources(${diskInfo.fileNumber})</span>
+	        				<span>files(${diskInfo.fileNumber})</span>
 	        			</div>
 	        		</div>
 	        		<a id="setting" href="u/setting"><span>setting</span></a>
 	        		<a id="other" href="javascript:message();"><span>leave a message</span></a>
-	        		<div id="netdisk"><span id="space_bar">view</span></div>
+	        		<div id="netdisk"><span id="space_bar">Space</span></div>
 	        		<div id="dir_tree"><ul id="my_file_tree" class="ztree"></ul></div>
 	        	</div>
 	        	<div id="right">
 	        		<div id="file_path">
 	        			<div id="path_wrap">
-		        			<div id="root"><span>my disk</span>:</div>
+		        			<div id="root"><span>root</span>:</div>
 		        			<div id="children_path"></div>
 	        			</div>
 	        		</div>
 	        		<div id="tools_bar">
-	        			<span id="mkdir">new directory</span>
+	        			<span id="mkdir">create</span>
 	        			<span id="upload">upload<span id="upload_button"></span></span>
-	        			<a href="share/u/${user.id }" id="share">share page</a>
+	        			<a href="share/u/${user.id }" id="share">share</a>
 	        		</div>
 	        		<div id="folder">
 	        			<ul>
@@ -127,13 +127,16 @@
     	</div>
     	<div id="upload_queue"></div>
     	<div id="dialog"></div>
+    	
 	</body>
 	<link rel="stylesheet" href="resource/promptBox/style.css"/>
 	<link rel="stylesheet" href="resource/uploadify/uploadify.css"/>
 	<link rel="stylesheet" href="resource/dialog/css/skin.css"/>
 	<link rel="stylesheet" href="resource/css/skin.css"/>
 	<script type="text/javascript" src="resource/promptBox/jquery.pop.js"></script>
+	<script type="text/javascript" src="resource/js/swfobject.js"></script>
 	<script type="text/javascript" src="resource/uploadify/jquery.uploadify.min.js"></script>
+	
 	<script type="text/javascript" src="resource/dialog/dialog.js"></script>
 	<script type="text/javascript" src="resource/drop/droppable.js"></script>
 	<script type="text/javascript" src="resource/drop/draggable.js"></script>
@@ -204,7 +207,7 @@
    		/*初始化的sTree*/
    		var zNodes = [{
    			isParent		: true,
-   			name 			: "我的网盘",
+   			name 			: "Disk",
    			open 			: true,
    			id 				: ${homeId},
    			type			: "adir"
@@ -332,7 +335,7 @@
 					tNode.isShare = 1;
 					zTree.updateNode(tNode);
 					f.removeClass("share_0").addClass("share_1");
-					dialog.show($("<span>资源主页 : </span>").
+					dialog.show($("<span>Page : </span>").
 									append($("<input/>").css({"width":320,"vertical-align":"middle"}).val(data)).append("<a href='"+data+"'>去资源主页看看</a>"),"分享成功，请记下链接");
 				};
 			}); 
@@ -367,7 +370,7 @@
 							f.attr("title",text.val());
 							text.parent().html(strLimit(tNode.name,20));
 						}else {
-							if(data == "fail"){alert("密码错误");}else{alert("网络不佳");}
+							if(data == "fail"){alert("wrong password");}else{alert("bad network");}
 							text.parent().html(strLimit(tNode.name,20));
 						}
 						text.remove();
@@ -620,9 +623,9 @@
     	$("#mkdir").click(function(){
     		 var fMkdir = "<form class='mkdir'><dl>"+
 							"<dt>folder name：</dt><dd><input name='folderName' type='text'/></dd>"+
-							"<dt></dt><dd><button type='submit'>sure?</button></dd>"+
+							"<dt></dt><dd><button type='submit'>create</button></dd>"+
 						"</dl></form>";
-        	dialog.show(fMkdir,'new folder');
+        	dialog.show(fMkdir,'create new directory');
     	});
     	/*进度条*/
     	$("#space_bar").progressBar({
@@ -638,7 +641,7 @@
     	var pop = popbox({
 			width:400,
 			height:240,
-			title:"file upload",
+			title:"uploading",
 			auto:false,
 			content:$("#upload_queue")
 		});
@@ -720,23 +723,23 @@
 
         message = function(){
 	       var form = "<form class='leave_message'><dl>"+
-							"<dt>标题：</dt><dd><input name='title' type='text' value=''/></dd>"+
-				    		"<dt>内容：</dt><dd><textarea name='content'/></dd>"+
+							"<dt>Title：</dt><dd><input name='title' type='text' value=''/></dd>"+
+				    		"<dt>Content：</dt><dd><textarea name='content'/></dd>"+
 				    		"<dt></dt><dd>"+
-				    			"<button type='button' onclick='dialog.close();'>取消</button>"+
-				    			"<button type='submit'>提交</button>"+
+				    			"<button type='button' onclick='dialog.close();'>cancel</button>"+
+				    			"<button type='submit'>submit</button>"+
 				    		"</dd>"+
 				    	"</dl></form>";
             
-            dialog.show(form,"提交留言和意见");
+            dialog.show(form,"Messages and Suggestions");
         }
 
         
 		var rules = {
-				"len4"		: [/^\s*[\s\S]{4,50}\s*$/,"密码需要超过4位"],
-				"content"	: [/^\s*[\s\S]{1,100}\s*$/,"不能为空，不超过100字符"],
-				"title"		: [/^\s*[\s\S]{1,20}\s*$/,"不能为空，不超过20字符"],
-				"fileName"	: [/^\s*[^#][\s\S]{1,20}\s*$/,"不超过20字符，不以符号开头"]
+				"len4"		: [/^\s*[\s\S]{4,50}\s*$/,"must be more than 4"],
+				"content"	: [/^\s*[\s\S]{1,100}\s*$/,"empty, no more than 100"],
+				"title"		: [/^\s*[\s\S]{1,20}\s*$/,"empty, no more than 20"],
+				"fileName"	: [/^\s*[^#][\s\S]{1,20}\s*$/,"invalid, no more than 20"]
 			};
         var items = [{
             	name:"title",
@@ -756,7 +759,7 @@
             	name:"pwd2",
             	type:"eq",
             	eqto:"pwd",
-            	errorMsg:"两次密码不匹配"
+            	errorMsg:"not match"
             },{
             	name:"oldPwd",
             	type:"len4",
@@ -769,7 +772,7 @@
             	name:"pwd1",
             	type:"eq",
             	eqto:"newPwd",
-            	errorMsg:"两次密码不匹配"
+            	errorMsg:"not match"
             }];
         
         /*我喜欢海瑛*/
@@ -786,8 +789,8 @@
     					$.post(url,data,function(d){
     						addFile(d);
     						dialog.
-    							updateTitle("新建文件成功").
-    							updateContent("<center><h1>新建文件成功</h1></center>");
+    							updateTitle("success").
+    							updateContent("<center><h1>success</h1></center>");
     						setTimeout("dialog.close()",1000);
     					},"json");
                     }else if(form.hasClass("add_pwd") && form.data("file")){
@@ -804,8 +807,8 @@
         						tNode.zAsync = false;
         						f.addClass("lock_1").removeClass("lock_0");
         						dialog.
-        							updateTitle("文件加密成功").
-	    							updateContent("<center><h1>请牢记密码</h1></center>");
+        							updateTitle("succeed to lock the file").
+	    							updateContent("<center><h1>please remember the password</h1></center>");
 	    						setTimeout("dialog.close()",2500);
         					}
         				});
@@ -822,11 +825,11 @@
         						tNode.zAsync = false;
         						f.addClass("lock_1").removeClass("lock_2");
         						dialog.
-        							updateTitle("密码修改成功").
-        							updateContent("<center><h1>请牢记新密码</h1></center>");
+        							updateTitle("succeed to change the password").
+        							updateContent("<center><h1>please remember the password</h1></center>");
         						setTimeout("dialog.close()",2500);
         					}else{
-            					alert("旧密码不对");
+            					alert("wrong old password");
         					}
         					
         				});
@@ -837,7 +840,7 @@
                     	$.post(url,data,function(d){
         					if(d == "1"){
         						dialog.
-        							updateTitle(":)留言成功").
+        							updateTitle(":)succeed to leave a message").
         							updateContent("<center><img src='resource/img/rose.gif'/><h1 style='color:green;'>have beautiful mind!</h1></center>");
         						setTimeout("dialog.close()",2500);
         					}
