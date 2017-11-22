@@ -78,17 +78,17 @@
 				background-repeat:no-repeat;
 				transition: all 0.3s ease 0s;
 				 -webkit-transition: all 0.7s ease-in-out 0s;
-				background-image:url(/resource/checkInput.v2/tip.png);
+				background-image:url(resource/checkInput.v2/tip.png);
 			}
 		</style>
 	</head>
 	<body>
 		<div id="wrap">
     		<div id="sky">
-    			<a id="logo" href="home/disk" title="Sun Disk"><img src="resource/img/logo.png"/></a>
+    			<a id="logo" href="home/disk" title="Sun Disk"></a>
     			<div id="cloud">
 	    			<span>${user.username}</span>|
-	    			<span><a href="login/logout" style="color:white;">[退出]</a></span>
+	    			<span><a href="login/logout" style="color:white;">[logout]</a></span>
     			</div>
     		</div>
 	        <div id="main">
@@ -102,7 +102,7 @@
 	        			</div>
 	        		</div>
 	        		<a id="setting" href="u/setting"><span>setting</span></a>
-	        		<a id="other" href="javascript:message();"><span>leave a message for song?</span></a>
+	        		<a id="other" href="javascript:message();"><span>leave a message</span></a>
 	        		<div id="netdisk"><span id="space_bar">view</span></div>
 	        		<div id="dir_tree"><ul id="my_file_tree" class="ztree"></ul></div>
 	        	</div>
@@ -838,7 +838,7 @@
         					if(d == "1"){
         						dialog.
         							updateTitle(":)留言成功").
-        							updateContent("<center><img src='/resource/img/rose.gif'/><h1 style='color:green;'>have beautiful mind!</h1></center>");
+        							updateContent("<center><img src='resource/img/rose.gif'/><h1 style='color:green;'>have beautiful mind!</h1></center>");
         						setTimeout("dialog.close()",2500);
         					}
         				});

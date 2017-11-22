@@ -46,4 +46,10 @@ public class LoginController extends Support{
     	session.setAttribute("user", u);
     	return "1";
     }
+    
+    @RequestMapping("/logout")
+    public String logout(User user) {
+    	session.invalidate();
+    	return "redirect:/";
+    }
 }
