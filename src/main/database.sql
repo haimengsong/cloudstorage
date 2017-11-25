@@ -10,7 +10,7 @@ create table users(
     gender int(1) not null,
     portrait varchar(50) default 'portrait',
     joindate char(30) not null
-);
+) ENGINE = INNODB;
 
 create table myfile(
     id int primary key auto_increment,
@@ -32,7 +32,7 @@ create table myfile(
     index(parent_id),
     foreign key (user_id) references users(id),
     foreign key (parent_id) references myfile(id) on DELETE CASCADE
-);
+) ENGINE = INNODB;
 
 create table mydiskinfo(
     id int primary key auto_increment,
@@ -42,7 +42,7 @@ create table mydiskinfo(
     filenumber int,
     sharenumber int,
     foreign key (user_id) references users(id)
-);
+) ENGINE = INNODB;
 
 create table message(
     id int primary key auto_increment,
@@ -52,4 +52,4 @@ create table message(
     title varchar(30) not null,
     content text not null,
     foreign key (user_id) references users(id)
-);
+) ENGINE = INNODB;

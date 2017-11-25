@@ -26,14 +26,15 @@
     <select id="getMyFileByID" parameterType="int" resultType="MyFile">
         select * from myfile where id = #{id}
     </select>
-
-    <select id="getFilesByFolderId" parameterType="int" resultType="MyFile">
+	
+	<select id="getMyFileByName" parameterType="string" resultType="int">
+		select id from myfile where name = #{_parameter}
+	</select>
+	
+    <select id="listFilesByFolderId" parameterType="int" resultType="MyFile">
         select * from myfile where parent_id = #{id} order by type asc
     </select>
 
-    <select id="getHomeID" parameterType="string" resultType="int">
-        select id from myfile where name = '#${value}'
-    </select>
 
     <insert id="insertMyFile" parameterType="MyFile">
         insert into myfile(user_id, parent_id,name,path,type,size)

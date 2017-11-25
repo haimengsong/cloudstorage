@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Service
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService extends BaseService{
 
     private static final long DEFAULT_TOTAL_SIZE = 1024 * 1024 * 5;
 
@@ -31,20 +31,20 @@ public class UserService {
     private MyFileDao myFileDao;
 
     @Transactional(readOnly = false)
-    public void save(User user) {
+    public void saveUser(User user) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy (E)");
         user.setJoindate(sdf.format(new Date()));
-        userDao.insert(user);
+        userDao.insertUser(user);
         int uID = user.getId();
         MyDiskInfo myDiskInfo = new MyDiskInfo();
         myDiskInfo.setUser_id(uID);
         myDiskInfo.setTotalSize(DEFAULT_TOTAL_SIZE);;
-        myDiskInfoDao.insert(myDiskInfo);
+        myDiskInfoDao.insertMyDiskInfo(myDiskInfo);
         MyFile myFile = new MyFile();
         myFile.setUser_id(uID);
         myFile.setName("#"+uID);
         myFile.setPath("/");
-        myFileDao.insert(myFile);
+        myFileDao.insertMyFile(myFile);
         int homeID = myFile.getId();
         String [] folders = {"Documents", "Music", "Photos", "Books"};
         for(int i = 0; i < 4; i++) {
@@ -53,14 +53,14 @@ public class UserService {
         	tempFile.setName(folders[i]);
         	tempFile.setParent_id(homeID);
         	tempFile.setPath("/"+homeID+"/");
-            myFileDao.insert(tempFile);
+            myFileDao.insertMyFile(tempFile);
         }
         user.setPortrait("portrait");
     }
 
 	public String confirmEmail(String email) {
 		// TODO Auto-generated method stub
-		if(userDao.userByEmailExists(email)){
+		if(userDao.countUsersByEmail(email) > 0){
 			return "0";
 		}
 		
@@ -69,14 +69,43 @@ public class UserService {
 
 	public String confirmUsername(String username) {
 		// TODO Auto-generated method stub
-		if(userDao.userByUsernameExists(username)){
+		if(userDao.countUsersByUsername(username) > 0){
 			return "0";
 		}
 		return "1";
 	}
 
-	public User load(User user) {
+
+	public boolean login(User user) {
 		// TODO Auto-generated method stub
-		return userDao.load(user);
+		User u = userDao.getUserByEmailAndPassword(user);
+        if(u != null) {
+            session.setAttribute("user", u);
+            session.setAttribute("diskInfo", myDiskInfoDao.getMyDiskInfoById(u.getId()));
+            session.setAttribute("homeId", myFileDao.getMyFileByName("#" + u.getId()));
+            return true;
+        }
+		return false;
+	}
+
+	public boolean loginConfirm(User user) {
+		// TODO Auto-generated method stub
+		User u = userDao.getUserByEmailAndPassword(user);
+    	if(u == null) return false;
+    	session.setAttribute("user", u);
+		return true;
+	}
+
+	public void logout(User user) {
+		// TODO Auto-generated method stub
+		session.invalidate();
+	}
+
+	public void register(User user) {
+		// TODO Auto-generated method stub
+		saveUser(user);
+        session.setAttribute("diskinfo", myDiskInfoDao.getMyDiskInfoById(user.getId()));
+        session.setAttribute("homeId", myFileDao.getMyFileByName("#" + user.getId()));
+        session.setAttribute("user", user);
 	}
 }

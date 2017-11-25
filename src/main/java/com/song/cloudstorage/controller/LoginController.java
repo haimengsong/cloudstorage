@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController extends Support{
+public class LoginController{
 
     @Autowired
     private UserService userService;
@@ -28,11 +28,8 @@ public class LoginController extends Support{
      */
     @RequestMapping("/welcome")
     public String login(User user) {
-        User u = userService.load(user);
-        if(u != null) {
-            session.setAttribute("user", u);
-            session.setAttribute("diskInfo", myDiskInfoService.load(u.getId()));
-            session.setAttribute("homeId", myFileService.getHomeId(u.getId()));
+    	boolean isSuccess = userService.login(user);
+        if(isSuccess) {
             return "redirect:/home/disk";
         }
         return "redirect:/";
@@ -41,15 +38,15 @@ public class LoginController extends Support{
     @RequestMapping(value="/login_confirm", method=RequestMethod.POST)
     @ResponseBody
     public String loginConfirm(User user) {
-    	User u = userService.load(user);
-    	if(u == null) return "0";
-    	session.setAttribute("user", u);
-    	return "1";
+    	if(userService.loginConfirm(user)) {
+    		return "1";
+    	}
+    	return "0";
     }
     
     @RequestMapping("/logout")
     public String logout(User user) {
-    	session.invalidate();
+    	userService.logout(user);
     	return "redirect:/";
     }
 }

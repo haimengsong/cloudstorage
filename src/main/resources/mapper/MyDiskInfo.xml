@@ -13,7 +13,7 @@
         <result property="shareNumber" column="sharenumber" javaType="java.lang.Integer"></result>
     </resultMap>
 
-    <select id="loadDiskInfo" parameterType="int" resultType="MyDiskInfo">
+    <select id="getDiskInfo" parameterType="int" resultType="MyDiskInfo">
         select * from mydiskinfo where user_id = #{id}
     </select>
 
@@ -25,4 +25,12 @@
             select LAST_INSERT_ID()
         </selectKey>
     </insert>
+    
+    <update id = "updateDiskInfo" parameterType = "MyDiskInfo">
+      update mydiskinfo set totalsize = #{totalSize}, 
+         usedsize = #{usedSize}, 
+         filenumber = #{fileNumber}, 
+         sharenumber = #{shareNumber}
+      WHERE ID = #{id};
+   </update>
 </mapper>

@@ -20,7 +20,7 @@
 
     <!-- 启动AOP支持 -->
     <aop:aspectj-autoproxy/>
-
+	
     <!-- 引入外部数据源配置信息 -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

@@ -16,24 +16,24 @@ public class MyFileDao {
     @Autowired
     private SqlSessionTemplate sqlSession;
 
-	public MyFile getMyFile(int id) {
+	public MyFile getMyFileById(int id) {
         String statement = BASEPATHOFMAPPER + "getMyFileByID";
         return (MyFile)sqlSession.selectOne(statement, id);
     }
 
     public List<MyFile> getFilesByFolderId(int id) {
     
-        String statement = BASEPATHOFMAPPER + "getFilesByFolderId";
+        String statement = BASEPATHOFMAPPER + "listFilesByFolderId";
         List<MyFile> files = sqlSession.selectList(statement, id);
         return files;
     }
-
-    public int getHomeId(int userId) {
-        String statement = BASEPATHOFMAPPER + "getHomeID";
-        return sqlSession.selectOne(statement, userId);
+    
+    public int getMyFileByName(String name) {
+        String statement = BASEPATHOFMAPPER + "getMyFileByName";
+        return sqlSession.selectOne(statement, name);
     }
 
-    public void insert(MyFile myFile) {
+    public void insertMyFile(MyFile myFile) {
         sqlSession.insert(BASEPATHOFMAPPER + "insertMyFile",myFile);
     }
 }
