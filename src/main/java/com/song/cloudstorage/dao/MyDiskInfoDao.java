@@ -17,15 +17,18 @@ public class MyDiskInfoDao {
     private  SqlSessionTemplate session;
 
 
-    public MyDiskInfo load(int id) {
+    public MyDiskInfo getMyDiskInfoById(int id) {
 
-        String statement = BASEPATHOFMAPPER + "loadDiskInfo";
+        String statement = BASEPATHOFMAPPER + "getDiskInfo";
         MyDiskInfo diskInfo = session.selectOne(statement, id);
         return diskInfo;
     }
 
-    public int insert(MyDiskInfo myDiskInfo) {
-        int id = session.insert(BASEPATHOFMAPPER + "insertDiskInfo",myDiskInfo);
-        return id;
+    public void insertMyDiskInfo(MyDiskInfo myDiskInfo) {
+        session.insert(BASEPATHOFMAPPER + "insertDiskInfo",myDiskInfo);
+    }
+    
+    public void updateMyDiskInfo(MyDiskInfo myDiskInfo) throws Exception{
+    	session.update(BASEPATHOFMAPPER + "updateDiskInfo", myDiskInfo);
     }
 }

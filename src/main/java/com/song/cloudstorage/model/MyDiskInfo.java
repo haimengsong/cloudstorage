@@ -56,5 +56,6 @@ public class MyDiskInfo {
     public void setShareNumber(int shareNumber) {
         this.shareNumber = shareNumber;
     }
-
+    
+   
 }

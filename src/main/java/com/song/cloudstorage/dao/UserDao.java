@@ -16,30 +16,28 @@ public class UserDao {
     private SqlSessionTemplate session;
 
 
-    public User load(User user) {
-        String statement = BASEPATHOFMAPPER + "loadUser";
+    public User getUserByEmailAndPassword(User user) {
+        String statement = BASEPATHOFMAPPER + "getUser";
         User u = session.selectOne(statement, user);
         return u;
     }
 
-    public int insert(User user) {
+    public int insertUser(User user) {
         String statement = BASEPATHOFMAPPER + "insertUser";
         int uID = session.insert(statement, user);
         return uID;
     }
 
-	public boolean userByEmailExists(String email) {
+	public int countUsersByEmail(String email) {
 		// TODO Auto-generated method stub
-        String statement = BASEPATHOFMAPPER + "selectNumOfUsersByEmail";
+        String statement = BASEPATHOFMAPPER + "countUsersByEmail";
         int numOfUser = session.selectOne(statement, email);
-        if(numOfUser > 0) return true;
-		return false;
+        return numOfUser;
 	}
 	
-	public boolean userByUsernameExists(String username) {
-        String statement = BASEPATHOFMAPPER + "selectNumOfUsersByUsername";
+	public int countUsersByUsername(String username) {
+        String statement = BASEPATHOFMAPPER + "countUsersByUsername";
         int numOfUser = session.insert(statement, username);
-        if(numOfUser > 0) return true;
-		return false;
+        return numOfUser;
 	}
 }

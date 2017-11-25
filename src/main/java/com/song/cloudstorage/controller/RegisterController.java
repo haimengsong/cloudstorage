@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/register")
-public class RegisterController extends Support{
+public class RegisterController{
 
     @Autowired
     private UserService userService;
@@ -30,10 +30,7 @@ public class RegisterController extends Support{
      */
     @RequestMapping("/welcome")
     public String register(User user) {
-        userService.save(user);
-        session.setAttribute("diskinfo", myDiskInfoService.load(user.getId()));
-        session.setAttribute("homeId", myFileService.getHomeId(user.getId()));
-        session.setAttribute("user", user);
+    	userService.register(user);
         return "redirect:/home/disk";
     }
     
@@ -45,8 +42,7 @@ public class RegisterController extends Support{
     @RequestMapping(value="/confirm_email", method=RequestMethod.POST)
     @ResponseBody
     public String confirmEmail(String email) {
-    	String result = userService.confirmEmail(email);
-    	return result;
+    	return userService.confirmEmail(email);
     }
     
     @RequestMapping(value="/confirm_username",method=RequestMethod.POST)

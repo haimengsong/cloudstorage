@@ -646,11 +646,12 @@
 			content:$("#upload_queue")
 		});
 		
+    	
 		$("#upload_button").uploadify({
 			height      : 22,
 			width       : 64,
 			swf        	: 'resource/uploadify/uploadify.swf',
-			auto 		: false,
+			auto 		: true,
 			//queueSizeLimit : 3,
 			fileTypeExts :"*.*",
 			fileSizeLimit	: 1024+"KB",
@@ -661,7 +662,9 @@
 					alert("don't have enough space");
 					return false;
 				}else{
-					file.uploadUrl = "home/upload/"+$("#folder").data("folder_id")+";jsessionid="+'${pageContext.session.id}';
+					
+					uploadUrl = '/cloudstorage/home/upload/'+$("#folder").data("folder_id")+";jsessionid=${pageContext.session.id}";
+					$('#upload_button').uploadify('settings','uploader',uploadUrl);
 					pop.show();
 					return true;
 				}

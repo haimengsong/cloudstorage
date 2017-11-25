@@ -14,7 +14,7 @@
 
     </resultMap>
 
-    <select id="loadUser" parameterType="User" resultType="User">
+    <select id="getUser" parameterType="User" resultType="User">
         select * from users where email = #{email} and password = md5(#{password})
     </select>
 
@@ -27,13 +27,13 @@
         </selectKey>
     </insert>
 	
-	<select id="selectNumOfUsersByEmail" parameterType="java.lang.String" resultType="int">
+	<select id="countUsersByEmail" parameterType="java.lang.String" resultType="int">
 		select count(*)
 		from users
 		where email = #{email}
 	</select>
 	
-	<select id="selectNumOfUsersByUsername" parameterType="java.lang.String" resultType="int">
+	<select id="countUsersByUsername" parameterType="java.lang.String" resultType="int">
 		select count(*)
 		from users
 		where username = #{username}
