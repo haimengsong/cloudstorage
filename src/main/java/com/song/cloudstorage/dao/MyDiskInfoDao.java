@@ -28,7 +28,7 @@ public class MyDiskInfoDao {
         session.insert(BASEPATHOFMAPPER + "insertDiskInfo",myDiskInfo);
     }
     
-    public void updateMyDiskInfo(MyDiskInfo myDiskInfo) {
-    	session.update(BASEPATHOFMAPPER + "updateMyDiskInfo", myDiskInfo);
+    public void updateMyDiskInfo(MyDiskInfo myDiskInfo) throws Exception{
+    	session.update(BASEPATHOFMAPPER + "updateDiskInfo", myDiskInfo);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, rollbackFor = {Exception.class})
 public class MyDiskInfoService extends BaseService{
 
     @Autowired
@@ -17,6 +17,10 @@ public class MyDiskInfoService extends BaseService{
 
     
     public boolean isEnoughSpace(MyFile myFile) {
-    	return true;
+    	MyDiskInfo myDiskInfo = myDiskInfoDao.getMyDiskInfoById(myFile.getUser_id());
+    	if(myDiskInfo.getUsedSize() + myFile.getSize() < myDiskInfo.getTotalSize()) {
+    		return true;
+    	}
+    	return false;
     }
 }

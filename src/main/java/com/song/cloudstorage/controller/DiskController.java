@@ -44,7 +44,7 @@ public class DiskController{
      */
     @RequestMapping("/upload/{folderid}")
     @ResponseBody
-    public String upload(HttpServletRequest request, @PathVariable int folderid) {
+    public String upload(HttpServletRequest request, @PathVariable int folderid) throws Exception{
     	return myFileService.upload(request, folderid);
     }
     

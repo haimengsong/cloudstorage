@@ -37,13 +37,16 @@
 
 
     <insert id="insertMyFile" parameterType="MyFile">
-        insert into myfile(user_id, parent_id,name,path,type,size)
+        insert into myfile(user_id, parent_id,name,size,type,path,createdate,location,description)
         <choose>
-            <when test="parent_id != 0">
-                values(#{user_id}, #{parent_id}, #{name}, #{path}, 'adir', 0)
+        	<when test="parent_id == 0">
+        		values(#{user_id}, null, #{name}, 0, 'adir', #{path}, #{createDate}, null, 'directory')
+        	</when>
+            <when test="type != null">
+                values(#{user_id}, #{parent_id}, #{name}, #{size}, #{type}, #{path}, #{createDate}, #{location}, "")
             </when>
             <otherwise>
-                values(#{user_id}, null, #{name}, #{path}, 'adir', 0)
+                values(#{user_id}, #{parent_id}, #{name}, 0, 'adir', #{path}, #{createDate}, null, 'directory')
             </otherwise>
         </choose>
        	<selectKey keyProperty="id" resultType="int" order="AFTER">

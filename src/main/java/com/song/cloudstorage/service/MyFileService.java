@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = true,rollbackFor = {Exception.class})
 public class MyFileService extends BaseService{
 	
 	private static final String FILEBASEPATH = FileStorage.getFilePath();
@@ -41,14 +41,7 @@ public class MyFileService extends BaseService{
 		return "";
 	}
 	
-	@Transactional(readOnly = false)
-    public void saveMyFile(MyFile myFile) {
-		myFileDao.insertMyFile(myFile);
-		MyDiskInfo myDiskInfo = myDiskInfoDao.getMyDiskInfoById(myFile.getUser_id());
-		myDiskInfo.setUsedSize(myDiskInfo.getUsedSize() + myFile.getSize());
-		myDiskInfo.setFileNumber(myDiskInfo.getFileNumber() + 1);
-		myDiskInfoDao.updateMyDiskInfo(myDiskInfo);
-	}
+	
 	
 	
 	/**
@@ -57,7 +50,8 @@ public class MyFileService extends BaseService{
      * @param folderid
      * @return
      */
-	public String upload(HttpServletRequest request, int folderid) {
+	@Transactional(readOnly = false)
+	public String upload(HttpServletRequest request, int folderid) throws Exception{
 		// TODO Auto-generated method stub
 		UploadHelper uploadHelper = new UploadHelper();
     	MultipartFile file = uploadHelper.getFiles(request).get(0);
@@ -78,7 +72,6 @@ public class MyFileService extends BaseService{
     		try {
     			uploadHelper.upload(file,filePath);
     			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    			
     			myFile.setCreateDate(sdf.format(new Date()));
     			myFile.setName(fileName);
     			myFile.setParent_id(folderid);
@@ -88,7 +81,14 @@ public class MyFileService extends BaseService{
     			myFile.setIsShare(0);
     			myFile.setDescription("");
     			
-    			saveMyFile(myFile);
+    			//saveMyFile(myFile);
+    			myFileDao.insertMyFile(myFile);
+    			//int a = 1/0;
+    			
+    			MyDiskInfo myDiskInfo = myDiskInfoDao.getMyDiskInfoById(myFile.getUser_id());
+    			myDiskInfo.setUsedSize(myDiskInfo.getUsedSize() + myFile.getSize());
+    			myDiskInfo.setFileNumber(myDiskInfo.getFileNumber() + 1);
+    			myDiskInfoDao.updateMyDiskInfo(myDiskInfo);
     			
     			MyDiskInfo diskInfo = myDiskInfoDao.getMyDiskInfoById(user.getId());
     			session.setAttribute("diskInfo", diskInfo);
