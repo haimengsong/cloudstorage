@@ -28,7 +28,7 @@ public class MyFileDao {
         return files;
     }
     
-    public int getMyFileByName(String name) {
+    public MyFile getMyFileByName(String name) {
         String statement = BASEPATHOFMAPPER + "getMyFileByName";
         return sqlSession.selectOne(statement, name);
     }

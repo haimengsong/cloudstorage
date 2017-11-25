@@ -27,8 +27,8 @@
         select * from myfile where id = #{id}
     </select>
 	
-	<select id="getMyFileByName" parameterType="string" resultType="int">
-		select id from myfile where name = #{_parameter}
+	<select id="getMyFileByName" parameterType="string" resultType="MyFile">
+		select * from myfile where name = #{_parameter}
 	</select>
 	
     <select id="listFilesByFolderId" parameterType="int" resultType="MyFile">

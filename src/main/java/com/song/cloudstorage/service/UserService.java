@@ -82,7 +82,7 @@ public class UserService extends BaseService{
         if(u != null) {
             session.setAttribute("user", u);
             session.setAttribute("diskInfo", myDiskInfoDao.getMyDiskInfoById(u.getId()));
-            session.setAttribute("homeId", myFileDao.getMyFileByName("#" + u.getId()));
+            session.setAttribute("homeId", myFileDao.getMyFileByName("#" + u.getId()).getId());
             return true;
         }
 		return false;
@@ -104,8 +104,13 @@ public class UserService extends BaseService{
 	public void register(User user) {
 		// TODO Auto-generated method stub
 		saveUser(user);
-        session.setAttribute("diskinfo", myDiskInfoDao.getMyDiskInfoById(user.getId()));
-        session.setAttribute("homeId", myFileDao.getMyFileByName("#" + user.getId()));
+//		System.out.println("user id: "+user.getId());
+//		System.out.println("diskinfo id: "+myDiskInfoDao.getMyDiskInfoById(user.getId()).getId());
+//		System.out.println("diskinfo filenumber: "+myDiskInfoDao.getMyDiskInfoById(user.getId()).getFileNumber());
+//		System.out.println("diskinfo totalsize: "+myDiskInfoDao.getMyDiskInfoById(user.getId()).getTotalSize());
+//		System.out.println("homeId: "+myFileDao.getMyFileByName("#" + user.getId()).getId());
+        session.setAttribute("diskInfo", myDiskInfoDao.getMyDiskInfoById(user.getId()));
+        session.setAttribute("homeId", myFileDao.getMyFileByName("#" + user.getId()).getId());
         session.setAttribute("user", user);
 	}
 }
